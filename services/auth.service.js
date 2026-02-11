@@ -31,9 +31,6 @@ export const initiateSignupService = async (email) => {
   };
 };
 
-/**
- * Verify OTP and create user
- */
 export const verifySignupOtpService = async ({
   email,
   otp,
@@ -113,3 +110,14 @@ export const loginService = async (email, password) => {
     }
   };
 };
+
+export const logoutService = () => {
+  return {
+    message: "Logged out successfully"
+  }
+}
+
+export const getAllUsersService = async () => {
+  const users = await User.find().select("-password");
+  return users;
+}

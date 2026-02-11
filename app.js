@@ -2,8 +2,10 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import authRoutes from './routes/auth.route.js';
-// import artifactRoutes from './routes/artifact.route.js';
+import authRouter from './routes/auth.route.js';
+import artifactRouter from './routes/artifact.route.js';
+import likeRouter from './routes/likes.route.js'
+import commentRouter from './routes/comment.route.js';
 
 
 const app = express();
@@ -23,7 +25,9 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/auth', authRoutes);
-// app.use('/artifacts', artifactRoutes);
+app.use('/auth', authRouter);
+app.use('/artifacts', artifactRouter);
+app.use('/likes', likeRouter);
+app.use('/comments', commentRouter);
 
 export default app;
