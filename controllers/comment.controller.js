@@ -1,11 +1,12 @@
 import { createCommentService, deleteCommentService } from "../services/comment.service.js";
 
 export const createComment = async (req, res) => {
-    console.log("userid:", req.user);
+    console.log("user:", req.user);
     // console.log("Creating comment with data:", { artifactId: req.body.artifactId, content: req.body.content, userId: req.user.id });
+    // const {artifact,id}
     try {
         const newComment = await createCommentService({
-            artifactId: req.body.artifactId,
+            artifactId: req.body.artifact,
             userId : req.user.id,
             content : req.body.content
         });

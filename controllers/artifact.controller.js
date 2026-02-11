@@ -7,6 +7,7 @@ import {
 
 
 export const createArtifact = async (req, res) => {
+    console.log(req.user) 
     try {
         const artifact = await createArtifactService({
             ...req.body,
