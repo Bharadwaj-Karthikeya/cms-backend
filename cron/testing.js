@@ -5,7 +5,7 @@ import artifact from '../models/artifact.js';
 export const testing = () => {
     console.log('Running a task every 12 hours');
 
-    cron.schedule('* */12 * * *', () => {
+    cron.schedule('0 */12 * * *', () => {
         artifact.find({
             status: "draft", 
             createdAt: { $lte: new Date(Date.now() - 1*24*60*60*1000)}
