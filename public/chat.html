@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    <input id="userId" type="text" placeholder="Enter your user ID">
+    <button id="connect" onclick="connectUser()">Connect</button>
+    <br><br>
+    
+    <input id = "recipientId" type="text" placeholder="Enter recipient user ID">
+    <input type="text" id="messageInput" placeholder="Type your message here...">
+    <button id="connect" onclick="sendMessage()">Send</button>
+    <br><br>
+    <div id="messages"></div>
+</body>
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+<script>
+    
+    const socket = io('http://localhost:3000', { transports: ['websocket'] }
+    ); 
+
+    function connectUser() { 
+        const userId = document.getElementById("userId").value; 
+        socket.emit('user-online', userId );
+    }
+    
+    function sendMessage() {
+        const senderId = document.getElementById("userId").value;
+        const receiverId = document.getElementById("recipientId").value;
+        const message = document.getElementById("messageInput").value;
+        socket.emit('send-message', { senderId, receiverId, message });
+    }
+
+    socket.on('receive-message', (data) => {
+        appendMessage("Received: "+ data.message);
+    });
+
+    socket.on('message-sent', (data) => {
+        appendMessage("Sent: "+ data.message);
+    });
+
+    function appendMessage(message) {
+        const messagesDiv = document.getElementById("messages");
+        const messageElement = document.createElement("div");
+        messageElement.textContent = message;
+        messagesDiv.appendChild(messageElement);
+    }
+
+</script>
+</html>

@@ -12,7 +12,6 @@ export const testing = () => {
         })
         .then(artifacts => {
             console.log(`Found ${artifacts.length} draft artifacts older than 1 day.`);
-            // Here you can add logic to delete or update these artifacts as needed
             console.log(`Setting them to archived`)
 
             artifacts.forEach(artifact => {

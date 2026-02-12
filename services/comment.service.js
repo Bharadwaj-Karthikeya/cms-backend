@@ -28,8 +28,7 @@ export const deleteCommentService = async ({ commentId, userId }) => {
     }
 
     const deletedComment = await comment.findOneAndDelete({
-        _id: commentId,
-        user: userId
+        _id: commentId
     })
 
     if (!deletedComment) {

@@ -6,6 +6,8 @@ import authRouter from './routes/auth.route.js';
 import artifactRouter from './routes/artifact.route.js';
 import likeRouter from './routes/likes.route.js'
 import commentRouter from './routes/comment.route.js';
+import chatRouter from './routes/chats.route.js';
+import webhookRouter from './webhook/webhook.js';
 
 
 const app = express();
@@ -25,9 +27,12 @@ app.get('/', (req, res) => {
     });
 });
 
+app.use('/webhook', webhookRouter);
+
 app.use('/auth', authRouter);
 app.use('/artifacts', artifactRouter);
 app.use('/likes', likeRouter);
 app.use('/comments', commentRouter);
+app.use('/chats', chatRouter);
 
 export default app;

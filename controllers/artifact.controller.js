@@ -2,7 +2,10 @@ import {
     createArtifactService, 
     getAllArtifactsbyUserService, 
     getAllArtifactsService,
-    deleteArtifactService
+    deleteArtifactService,
+    updateArtifactStatusService,
+    getArtifactByStatusService,
+    updateArtifacttoPublishedService
 } from "../services/artifact.service.js";
 
 
@@ -68,6 +71,62 @@ export const deleteArtifact = async (req, res) => {
             success: true,
             message: "Artifact deleted successfully",
             result
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+
+export const getArtifactByStatus = async (req, res) => {
+    try {
+        console.log("Fetching artifact by status for user:", req.user.id);
+        const { status } = req.body;
+        const artifact = await getArtifactByStatusService(req.user.id, status);
+        res.status(200).json({
+            success: true,
+            message: "Artifact fetched successfully",
+            artifact
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+export const updateArtifactStatus = async (req, res) => {
+    try {
+        const { artifactId, status } = req.body;
+        const userId = req.user.id;
+
+        const artifact = await updateArtifactStatusService(artifactId, userId, status );
+        res.status(200).json({
+            success: true,
+            message: "Artifact status updated successfully",
+            artifact
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
+export const updateArtifacttoPublished = async (req, res) => {
+    try {
+        const { artifactId } = req.body;
+        const userId = req.user.id;
+        const artifact = await updateArtifacttoPublishedService({ artifactId, userId });
+        res.status(200).json({
+            success: true,
+            message: "Artifact status updated to published successfully",
+            artifact
         });
     } catch (error) {
         res.status(400).json({
