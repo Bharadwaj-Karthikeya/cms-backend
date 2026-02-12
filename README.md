@@ -61,7 +61,7 @@ Robust Express 5 backend for a content management system that combines REST APIs
 - Cron automation: executes twice daily, archiving dormant drafts to keep the artifact dataset clean.
 
 ## Key Project Details
-- Express JSON parsing limited to 10 MB per request to prevent oversized uploads.
+- Express JSON parsing limited to 5 MB per request to prevent oversized uploads.
 - File uploads land in `uploads/` and are promptly pushed to Cloudinary during artifact creation, with local cleanup afterward.
 - Rate limiter responds with structured JSON to simplify client handling.
 - Thread documents store participants and last message metadata, enabling efficient inbox-style listings.
